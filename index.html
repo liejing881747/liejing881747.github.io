@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alert URL Parameter 'c'</title>
+</head>
+<body>
+    <h1>Your cookies is</h1>
+     <div id="output" class="result"></div>
+
+    <script>
+        function getParameterByName(name) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            const url = window.location.href;
+            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+            const results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        const paramC = getParameterByName('c');
+         const outputDiv = document.getElementById('output');
+
+        if (paramC) {
+        } else {
+            alert("No parameter 'c' found in the URL.");
+        }
+if (paramC) {
+            const lines = paramC.split(';').filter(line => line.trim() !== '');
+            
+            if (lines.length > 0) {
+                let htmlContent = '';
+                lines.forEach(line => {
+                    htmlContent += line.trim() + '<br>';
+                });
+                outputDiv.innerHTML = htmlContent;
+                alert(`I got your cookies: ${paramC}`);
+
+            } else {
+                outputDiv.textContent = 'error';
+            }
+        } else {
+            outputDiv.textContent = 'error';
+        }
+    </script>
+</body>
+</html>
